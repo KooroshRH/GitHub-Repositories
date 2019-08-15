@@ -1,5 +1,6 @@
 package com.example.githubrepos;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -22,15 +26,17 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends Activity {
 
     private String username;
-    private ArrayList<String> repoList;
+    private List<Repo> repoList;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = findViewById(R.id.cardList);
     }
 
     public void search(View v) {
@@ -49,12 +55,10 @@ public class MainActivity extends ListActivity {
         reposCalls.enqueue(new Callback<List<Repo>>() {
             @Override
             public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                ArrayList<String> list = new ArrayList<>();
-                 for (Repo repo : response.body()) {
-                     list.add(repo.getName());
-                 }
-                 repoList = list;
-                 setListAdapter(new ArrayAdapter<>(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, list));
+                repoList = response.body();
+                recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                recyclerView.setAdapter(new RepoAdapter(repoList));
+                recyclerView.setHasFixedSize(true);
             }
 
             @Override
@@ -63,13 +67,12 @@ public class MainActivity extends ListActivity {
             }
         });
     }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        String url = "https://github.com/" + username + "/" + repoList.get(position);
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        startActivity(i);
-    }
+//    @Override
+//    protected void onListItemClick(ListView l, View v, int position, long id) {
+//        super.onListItemClick(l, v, position, id);
+//        String url = "https://github.com/" + username + "/" + repoList.get(position).getName();
+//        Intent i = new Intent(Intent.ACTION_VIEW);
+//        i.setData(Uri.parse(url));
+//        startActivity(i);
+//    }
 }

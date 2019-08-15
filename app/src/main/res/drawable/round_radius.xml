@@ -8,16 +8,13 @@
 
     <gradient
         android:angle="45"
-        android:centerX="float"
-        android:centerY="float"
         android:endColor="#F35B2F"
-        android:gradientRadius="integer"
         android:startColor="#E03325"
         android:type="linear" />
 
     <stroke
         android:width="2dp"
-        android:color="#FFFFFF" />
+        android:color="#524C4C" />
 
     <size
         android:width="82dp"
