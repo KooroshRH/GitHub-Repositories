@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/repoCard"
+    style="@style/Widget.MaterialComponents.CardView"
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:layout_gravity="center"
     android:layout_marginVertical="5dp"
     card_view:cardCornerRadius="20dp"
-    card_view:cardBackgroundColor="#F35B2F">
+    card_view:cardBackgroundColor="@color/colorPrimary">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="15dp"
             android:text="first line"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -34,4 +35,4 @@
             android:text="sec line"
             android:textColor="#000000"/>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

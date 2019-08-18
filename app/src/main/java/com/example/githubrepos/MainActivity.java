@@ -55,10 +55,14 @@ public class MainActivity extends Activity {
         reposCalls.enqueue(new Callback<List<Repo>>() {
             @Override
             public void onResponse(Call<List<Repo>> call, Response<List<Repo>> response) {
-                repoList = response.body();
-                recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
-                recyclerView.setAdapter(new RepoAdapter(repoList));
-                recyclerView.setHasFixedSize(true);
+                if (response.body() != null) {
+                    repoList = response.body();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+                    recyclerView.setAdapter(new RepoAdapter(repoList));
+                    recyclerView.setHasFixedSize(true);
+                } else {
+                    Toast.makeText(getBaseContext(), "Please enter a valid username", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
